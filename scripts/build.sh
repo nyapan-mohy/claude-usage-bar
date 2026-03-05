@@ -26,8 +26,16 @@ mkdir -p "$APP_BUNDLE/Contents/MacOS"
 mkdir -p "$APP_BUNDLE/Contents/Resources"
 
 cp "$PROJECT_DIR/Resources/Info.plist" "$APP_BUNDLE/Contents/Info.plist"
-cp "$PROJECT_DIR/Resources/AppIcon.icns" "$APP_BUNDLE/Contents/Resources/AppIcon.icns"
 cp "$BINARY" "$APP_BUNDLE/Contents/MacOS/$APP_NAME"
+
+# --- Compile Asset Catalog (generates Assets.car + AppIcon.icns) ---
+echo "==> Compiling Asset Catalog..."
+actool --compile "$APP_BUNDLE/Contents/Resources" \
+       --platform macosx \
+       --minimum-deployment-target 14.0 \
+       --app-icon AppIcon \
+       --output-partial-info-plist /dev/null \
+       "$PROJECT_DIR/Resources/Assets.xcassets" > /dev/null
 
 # --- Ad-hoc codesign ---
 echo "==> Codesigning (ad-hoc)..."
