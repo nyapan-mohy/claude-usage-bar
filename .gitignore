@@ -5,3 +5,15 @@
 *.app/
 .DS_Store
 xcuserdata/
+
+# Windows build artifacts
+windows/build/
+*.exe
+*.lib
+*.obj
+*.pdb
+*.ilk
+*.exp
+
+# Claude Code local settings
+.claude/
